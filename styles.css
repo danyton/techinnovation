@@ -1,6 +1,6 @@
 :root {
   --bg: #f6f7fb;
-  --surface: #ffffff;
+  --surface: rgba(255, 255, 255, 0.8);
   --surface-alt: #eef3ff;
   --primary: #2c70ff;
   --primary-strong: #122ab2;
@@ -9,7 +9,7 @@
   --text: #171b24;
   --muted: #5f6b7a;
   --line: rgba(16, 24, 40, 0.08);
-  --shadow: 0 18px 50px rgba(17, 24, 39, 0.10);
+  --shadow: 0 20px 45px rgba(31, 44, 74, 0.12);
   --radius: 22px;
 }
 
@@ -24,9 +24,45 @@ html {
 }
 
 body {
+  position: relative;
   font-family: "Inter", sans-serif;
-  background: linear-gradient(180deg, #f7f9ff 0%, #eef3ff 100%);
+  background: radial-gradient(circle at top left, rgba(125, 86, 249, 0.12), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(44, 112, 255, 0.1), transparent 30%),
+    linear-gradient(180deg, #f7f9ff 0%, #eef3ff 100%);
   color: var(--text);
+  overflow-x: hidden;
+}
+
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.orb-1 {
+  width: 280px;
+  height: 280px;
+  background: rgba(125, 86, 249, 0.22);
+  top: 10%;
+  left: 10%;
+}
+
+.orb-2 {
+  width: 300px;
+  height: 300px;
+  background: rgba(44, 112, 255, 0.18);
+  right: 8%;
+  top: 30%;
+}
+
+.orb-3 {
+  width: 240px;
+  height: 240px;
+  background: rgba(58, 214, 193, 0.14);
+  left: 40%;
+  bottom: 8%;
 }
 
 a {
@@ -48,8 +84,8 @@ img {
   position: sticky;
   top: 0;
   z-index: 20;
-  backdrop-filter: blur(14px);
-  background: rgba(247, 249, 255, 0.8);
+  backdrop-filter: blur(16px);
+  background: rgba(247, 249, 255, 0.72);
   border-bottom: 1px solid var(--line);
 }
 
@@ -98,7 +134,7 @@ img {
 }
 
 .button:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .button-primary {
@@ -176,6 +212,11 @@ img {
 
 .metrics li {
   min-width: 120px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px 18px;
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.04);
 }
 
 .metrics strong {
@@ -199,12 +240,14 @@ img {
   overflow: hidden;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .card-main {
   width: min(78%, 460px);
   right: 0;
   top: 0;
+  transform: rotate(4deg);
 }
 
 .card-main img {
@@ -217,6 +260,7 @@ img {
   left: 0;
   bottom: 30px;
   border: 8px solid rgba(255, 255, 255, 0.75);
+  transform: rotate(-6deg);
 }
 
 .card-small img {
@@ -287,14 +331,22 @@ img {
 .tech-card,
 .plan-card,
 .highlight-item {
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.72);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
 }
 
 .tech-card {
   padding: 28px 24px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tech-card:hover,
+.plan-card:hover,
+.highlight-item:hover {
+  transform: translateY(-6px);
 }
 
 .tech-icon {
@@ -343,6 +395,7 @@ img {
 .plan-card {
   position: relative;
   padding: 32px 24px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .plan-card.featured {
@@ -415,6 +468,7 @@ img {
   border: 1px solid var(--line);
   border-radius: calc(var(--radius) + 8px);
   padding: 34px 28px;
+  box-shadow: var(--shadow);
 }
 
 .newsletter-form {
@@ -443,6 +497,11 @@ img {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: #fff;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.newsletter-form button:hover {
+  transform: translateY(-2px);
 }
 
 .site-footer {
@@ -474,6 +533,17 @@ img {
   gap: 16px;
   color: var(--muted);
   font-weight: 600;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (max-width: 860px) {
